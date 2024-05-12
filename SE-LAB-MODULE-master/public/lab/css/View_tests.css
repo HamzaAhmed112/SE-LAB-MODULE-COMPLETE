@@ -1,0 +1,289 @@
+
+.right_sec {
+    width: calc(100% - 520px);
+    background-color: rgb(255, 255, 255);
+    height: 93vh;
+    /* max-height: 93vh; */
+    padding: 50px 50px;
+    box-sizing: border-box;
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+}
+
+.grow {
+    flex: 1;
+}
+
+h3 {
+    font-size: 3.6rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding: 30px 8px;
+    color: #000000;
+    font-family: "Alata", sans-serif;
+}
+
+.pres_detail {
+    display: flex;
+    letter-spacing: 1px;
+    /* height: 190px; */
+}
+
+.head_detail div {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.head {
+    color: #000000;
+    font-size: 2rem;
+    font-weight: 400;
+    width: 250px;
+    display: block;
+}
+
+.detail {
+    color: #AFA5A5;
+    font-size: 2.4rem;
+    font-weight: 400;
+    width: 400px;
+    /* display: block;
+    align-items: end;
+    display: flex; */
+}
+
+.date div {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.date .head {
+    width: 150px;
+}
+
+/* .test_detail{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+} */
+.test_head {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 40px 20px 8px;
+}
+
+h4 {
+    font-size: 2.4rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    /* padding: 30px 8px; */
+    color: #000000;
+}
+
+.test_over {
+    overflow-y: auto;
+    height: 500px;
+}
+
+.test {
+    display: flex;
+    width: 100%;
+    padding: 20px 30px 20px 15px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2.4rem;
+    letter-spacing: 1px;
+    color: #AFA5A5;
+    font-weight: 400;
+}
+
+.total_bottom {
+    width: 100%;
+    align-self: flex-end;
+}
+
+.break {
+    height: 1px;
+    width: 100%;
+    background-color: #000000;
+    margin-top: 20px;
+}
+
+.total_bottom .test_cost {
+    font-size: 2.4rem;
+    letter-spacing: 1px;
+    color: #AFA5A5;
+    font-weight: 400;
+}
+
+.bottom_but {
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+
+.bottom_but button {
+    background-color: #CABCB0;
+    color: #464246;
+    padding: 12px 30px;
+    margin: 20px;
+    width: 200px;
+    border: none;
+    font-size: 2.4rem;
+    font-weight: 400;
+}
+
+.bottom_but button:hover {
+    background-color: #cabcb09d;
+    cursor: pointer;
+}
+
+@media screen and (max-height: 1400px) {
+
+    .test_over {
+        overflow-y: auto;
+        height: 500px;
+    }
+}
+
+@media screen and (max-height: 1330px) {
+
+    .test_over {
+        overflow-y: auto;
+        height: 450px;
+    }
+}
+
+@media screen and (max-height: 1275px) {
+
+    .test_over {
+        overflow-y: auto;
+        height: 400px;
+    }
+}
+
+@media screen and (max-height: 1225px) {
+
+    .test_over {
+        overflow-y: auto;
+        height: 350px;
+    }
+}
+
+@media screen and (max-height: 1160px) {
+
+    .test_over {
+        overflow-y: auto;
+        height: 300px;
+    }
+}
+
+@media screen and (max-height: 1100px) {
+
+    .test_over {
+        overflow-y: auto;
+        height: 250px;
+    }
+}
+
+@media screen and (max-height: 1070px) {
+    html {
+        font-size: 9px;
+    }
+
+    h3 {
+        padding: 20px 8px;
+    }
+
+
+    .head_detail div {
+        padding: 12px;
+    }
+
+    .test_head {
+        padding: 30px 40px 15px 8px;
+    }
+
+    .break {
+        margin-top: 5px;
+    }
+
+    .bottom_but {
+        display: flex;
+        justify-content: end;
+        margin-top: 5px;
+    }
+
+    .bottom_but button {
+        background-color: #CABCB0;
+        color: #464246;
+        padding: 12px 30px;
+        margin-left: 20px;
+        width: 200px;
+        border: none;
+        font-size: 2.4rem;
+        font-weight: 400;
+    }
+}
+
+@media screen and (max-height: 950px) {
+    html {
+        font-size: 8px;
+    }
+
+    h3 {
+        padding: 18px 8px;
+    }
+
+    .head_detail div {
+        padding: 10px;
+    }
+
+    .test_head {
+        padding: 20px 40px 15px 8px;
+    }
+
+    .break {
+        margin-top: 5px;
+    }
+
+    .bottom_but {
+        margin-top: 4px;
+    }
+
+}
+
+@media screen and (max-width: 1650px) {
+    .head {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .detail {
+        width: 350px;
+    }
+    .left_sec {
+        width: 400px;
+    }
+
+    .sidebar {
+        padding: 200px 50px;
+    }
+
+    .right_sec {
+        width: calc(100% - 420px);
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .pres_detail {
+        display: flex;
+        flex-direction: column;
+    }
+}

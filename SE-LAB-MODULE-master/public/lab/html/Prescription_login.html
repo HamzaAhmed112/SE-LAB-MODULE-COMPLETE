@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="main_style.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    html {
+        font-size: 10px;
+    }
+    
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+    
+    .centre_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #F8F8F8;
+    }
+    
+    .logo {
+        padding: 35px 45px;
+        font-size: 2.4rem;
+        font-weight: 400;
+        color: #686868;
+        font-family: "Alata", sans-serif;
+        letter-spacing: 2px;
+    }
+    
+    span {
+        margin-right: 10px;
+    }
+    
+    section {
+        display: flex;
+        /* height: 46vh; */
+        height: 632px;
+        width: 736px;
+        flex-direction: column;
+        justify-content: space-between;
+        /* align-items: center; */
+        background-color: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.250);
+    }
+    
+    .prescription {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* height: 100%; */
+        /* background-color: aqua; */
+    }
+    
+    .prescription_id {
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+    
+        background-color: rgb(255, 255, 255);
+    }
+    
+    h3 {
+        font-size: 3rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+        padding: 30px 8px;
+        color: #686868;
+        font-family: "Alata", sans-serif;
+    }
+    
+    #pres_id {
+        background-color: #FFFFFF;
+        border: 1px solid black;
+        border-radius: 500px;
+        padding: 12px 32px;
+        color: #AFA5A5;
+        font-size: 2.8rem;
+        letter-spacing: 3px;
+        width: 80%;
+    }
+    
+    button {
+        padding: 18px 60px;
+        border-radius: 30px;
+        font-size: 1.8rem;
+        font-family: "Alata", sans-serif;
+        font-weight: bold;
+        border: none;
+        background-color: #CABCB0;
+        margin: 80px 0px 140px 0px;
+        letter-spacing: 1px;
+    }
+    button:hover{
+        background-color: #dbd1c8;
+        cursor: pointer;
+    }
+    
+    @media screen and (max-width: 800px) {
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+    
+        section {
+            height: 600px;
+            width: 90%;
+    
+        }
+    
+        .prescription_id {
+    
+            align-items: center;
+        }
+    
+        h3 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            padding: 20px 0px;
+        }
+    
+        #pres_id {
+            margin: 0px 30px;
+            padding: 12px 32px;
+            color: #AFA5A5;
+            font-size: 2rem;
+            letter-spacing: 4px;
+            width: 50vw;
+        }
+    
+        button {
+            font-size: 1.4rem;
+            margin: 120px 0px 90px 0px;
+        }
+    }
+    
+    @media screen and (max-height: 650px) {
+        html{
+            font-size: 8px;
+        }
+        section {
+            height: 90vh;
+        }
+    
+    } </style>
+
+    <title>Prescription Login</title>
+</head>
+
+<body>
+    <div class="centre_container">
+        <section>
+
+            <div class="logo">
+                <span class="fa fa-star"></span>LABCORP
+            </div>
+
+            <div class="prescription">
+                <div class="prescription_id">
+                    <h3>Prescription ID</h3>
+                    <input type="" name="pres_id" id="pres_id">
+                </div>
+                <button onclick="">PROCEED</button>
+            </div>
+
+        </section>
+    </div>
+</body>
+
+</html>

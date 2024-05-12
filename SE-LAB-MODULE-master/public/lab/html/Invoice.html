@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="../CSS/main_style.css">
+    <link rel="stylesheet" href="../CSS/View_tests.css">
+    <link rel="stylesheet" href="../CSS/Invoice.css">
+
+
+    <title>Invoice</title>
+</head>
+
+<body>
+    <section class="right_sec" id="main">
+        <div class="grow">
+            <h3>INVOICE</h3>
+            <div class="pres_detail">
+                <div class="head_detail">
+                    <div><span class="head">Patient Name:</span> <span class="detail" id="Name">Hamza Ahmed</span>
+                    </div>
+                    <div>
+                        <span class="head">Doctor Name:
+                        </span> <span class="detail" id="Doc_Name">Dr. Ali</span>
+                    </div>
+                    <div>
+                        <span class="head">Prescription ID:</span> <span class="detail" id="Pres_ID">145233</span>
+                    </div>
+                </div>
+                <div class="date">
+                    <div><span class="head">Date:</span> <span class="detail">05/05/2023</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test_detail">
+                <div class="test_head">
+                    <h4>TESTS</h4>
+                    <h4>COST</h4>
+                </div>
+                <div class="test_over">
+                    <div class="test">
+                        <div class="test_name">Hemoglobin A1C</div>
+                        <div class="test_cost">$15.00</div>
+                    </div>
+                    <div class="test">
+                        <div class="test_name">Lipid Panel</div>
+                        <div class="test_cost">$25.00</div>
+                    </div>
+                    <div class="test">
+                        <div class="test_name">Thyroid Function Test</div>
+                        <div class="test_cost">$50.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="total_bottom">
+            <div class="break"></div>
+            <div class="test_head">
+                <h4>TOTAL COST</h4>
+                <!-- <h4>COST</h4> -->
+                <div class="test_cost">$90.00</div>
+            </div>
+            <div class="bottom_but">
+                <button onclick="printhandle()" id="print_but">PRINT</button>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    function printhandle() {
+        document.getElementById('main').style.margin = "0px";
+        document.getElementById('print_but').style.visibility = "hidden";
+        document.getElementById('Name').style.width = "350px";
+        document.getElementById('Doc_Name').style.width = "350px";
+        document.getElementById('Pres_ID').style.width = "350px";
+        window.print();
+        document.getElementById('Name').style.width = "400px";
+        document.getElementById('Doc_Name').style.width = "400px";
+        document.getElementById('Pres_ID').style.width = "400px";
+        document.getElementById('main').style.margin = "auto";
+        document.getElementById('print_but').style.visibility = "visible";
+    }
+    function printDiv(divName) {
+        document.getElementById('print_but').style.visibility = "hidden";
+        var printContents = document.getElementById(divName).innerHTML;
+        w = window.open();
+        w.document.write(printContents);
+        w.print();
+        w.close();
+        document.getElementById('print_but').style.visibility = "visible";
+    }
+</script>
+
+</html>
