@@ -1,0 +1,120 @@
+CREATE TRIGGER trg_InsertSampleAndUpdateStatus
+ON dbo.TestOrders
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON; -- Prevents extra result sets
+
+    -- Declare variables to store extracted values
+    DECLARE @NewOrderID INT, @PrescriptionID INT, @TotalTests INT, @SampleID INT;
+
+    -- Extracting the newly inserted OrderID
+    SELECT @NewOrderID = i.OrderID
+    FROM inserted i;
+
+    -- Extracting PrescriptionID associated with the OrderID
+    SELECT @PrescriptionID = t.PrescriptionID
+    FROM dbo.TestOrders t
+    WHERE t.OrderID = @NewOrderID;
+
+    -- Calculating the total number of tests for this PrescriptionID
+    SELECT @TotalTests = COUNT(pt.TestID)
+    FROM dbo.PatientTest pt
+    WHERE pt.PrescriptionID = @PrescriptionID;
+
+    -- Calculate the total volume based on the count of distinct field IDs associated with each test ID
+    DECLARE @TotalVolume INT;
+    SELECT @TotalVolume = COUNT(DISTINCT tfb.FieldID)
+    FROM dbo.PatientTest pt
+    JOIN dbo.TestFieldsBridge tfb ON pt.TestID = tfb.TestID
+    WHERE pt.PrescriptionID = @PrescriptionID;
+
+    -- Inserting into the Samples table with the adjusted Volume
+    INSERT INTO dbo.Samples(OrderID, SampleShift, Volume, StorageCondition)
+    VALUES (@NewOrderID, 1, @TotalVolume, NULL);
+
+    -- Fetch the newly inserted SampleID
+    SELECT @SampleID = SampleID
+    FROM dbo.Samples
+    WHERE OrderID = @NewOrderID;
+
+    -- Insert into TestCountAndStatus table with status 'Pending'
+    INSERT INTO dbo.TestCountAndStatus (OrderID, TestID, SampleID, Status)
+    SELECT @NewOrderID, pt.TestID, @SampleID, 'Pending'
+    FROM dbo.PatientTest pt
+    WHERE pt.PrescriptionID = @PrescriptionID;
+
+    -- Insert into LabResults using the inserted SampleID and corresponding TestID and all FieldIDs associated with the TestID
+    INSERT INTO dbo.LabResults (SampleID, TestID, FieldID, FieldResult, Timestamp)
+    SELECT 
+        @SampleID, 
+        pt.TestID,
+        tfb.FieldID, 
+        NULL AS FieldResult, 
+        NULL AS Timestamp
+    FROM 
+        dbo.PatientTest pt
+    JOIN 
+        dbo.TestFieldsBridge tfb ON pt.TestID = tfb.TestID
+    WHERE 
+        pt.PrescriptionID = @PrescriptionID;
+END
+GO
+--------------
+drop producer frist then
+----------------
+CREATE PROCEDURE [dbo].[UpdateLabResultWithTimestamp]
+    @SampleID INT,
+    @FieldID INT,
+    @NewValue VARCHAR(MAX),
+    @TestName VARCHAR(255) -- Added parameter for TestName
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Declare variables to hold the updated values
+    DECLARE @OrderID INT;
+    DECLARE @TestID INT;
+
+    -- Get the TestID from the TotalLabTests table based on the TestName
+    SELECT @TestID = TestID
+    FROM dbo.TotalLabTest
+    WHERE TestName = @TestName;
+
+    -- Check if a matching TestID was found
+    IF @TestID IS NULL
+    BEGIN
+        -- Handle the case where the TestID was not found
+        RAISERROR('TestID not found for the given TestName', 16, 1);
+        RETURN;
+    END
+
+    -- Update the LabResults table
+    UPDATE dbo.LabResults
+    SET FieldResult = @NewValue,
+        Timestamp = GETDATE() -- Update the Timestamp column with the current date and time
+    WHERE SampleID = @SampleID
+    AND FieldID = @FieldID
+    AND TestID = @TestID; -- Added TestID condition
+
+    -- Get the OrderID from the Sample table
+    SELECT @OrderID = OrderID
+    FROM dbo.Samples
+    WHERE SampleID = @SampleID;
+
+    -- Check if the FieldResult matches the expected FieldID, SampleID, and TestID
+    IF EXISTS (
+        SELECT 1
+        FROM dbo.LabResults lr
+        WHERE lr.FieldID = @FieldID AND lr.SampleID = @SampleID AND lr.TestID = @TestID AND lr.FieldResult IS NOT NULL
+    )
+    BEGIN
+        -- Update the status to 'Completed' in the TestCountAndStatus table
+        UPDATE tcs
+        SET tcs.Status = 'Completed'
+        FROM dbo.TestCountAndStatus tcs
+        WHERE tcs.TestID = @TestID AND tcs.OrderID = @OrderID;
+    END;
+END
+GO
+
